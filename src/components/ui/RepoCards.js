@@ -33,9 +33,9 @@ function RepoCards({ repo, onSave }) {
                 src={repo?.owner?.avatar_url}
               />
             </picture>
-            <h1 className="text-[14px] lg:text-[16px] text-[#4551BD] overflow-x-hidden">
+            <a target="_blank" href={repo?.html_url} className="text-[14px] lg:text-[16px] text-[#4551BD] overflow-x-hidden">
               {repo?.full_name}
-            </h1>
+            </a>
           </div>
           <div></div>
           <h2 className="text-[10px] lg:text-[14px]">{repo?.description}</h2>
