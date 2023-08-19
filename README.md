@@ -27,6 +27,7 @@ Para conseguir el Token Personal:"
 5. Ese código que se genera al darle al botón, guárdalo en un bloc de notas.
 
 
+
 Para configurar el OAuth App:
 
 1. Haz los mismos pasos que con el Personal Token hasta llegar aquí. ![image](https://github.com/krakatua/prueba-git/assets/82242977/533fcade-adbb-4158-8502-272e336f6bbb)
