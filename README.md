@@ -31,7 +31,9 @@ Cuando se haya hecho un clone del repositorio crear un .env con las keys que tie
 4. Next Auth es basicamente poner un "http://localhost:3000"
 5. JWT_SECRET se consigue abriendo el terminal y escribiendo "openssl rand -base64 32" o usar este link: https://generate-secret.vercel.app/32
 
-La aplicacion podra correr. 
+Como ultimo paso:
+Abrir la terminal y escribir npm run dev
+
 
 
 
