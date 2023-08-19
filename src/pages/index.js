@@ -47,6 +47,8 @@ function Home() {
       setSearchResults(data);
       setCurrentPage(page);
       setLoading(false)
+    } else {
+      toast('Internal Server Error')
     }
   };
 

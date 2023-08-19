@@ -16,13 +16,6 @@ function RepoCards({ repo }) {
 
   const formattedDate = `Updated on ${day} ${monthAbbreviation}`;
 
- 
-const handleAdd = () => {
-  onSave(repo); // Aquí llama a la función para guardar el repoCard
-  setIsSaved(true);
-  toast(`${repo?.full_name} was added to your list`);
-}
-
 useEffect(() => {
   const storeRepo = localStorage.getItem("savedRepo");
   if (storeRepo) {
