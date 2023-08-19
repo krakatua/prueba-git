@@ -1,5 +1,18 @@
 Buenas. Esta es la aplicación consumiendo la API de GitHub.
 
+Herramientas usadas para el UI:
+- `Tailwind` Para las clases
+- `Tailwind Animated` Para las animaciones
+- `Figma` Para el maquetado pdf:[Prueba - Git.pdf](https://github.com/krakatua/prueba-git/files/12386177/Prueba.-.Git.pdf)
+
+Herramientas para testear:
+-`Postman` Para el testeo de la api
+
+Algunas dependencias:
+-`Octokit`
+-`Next-Auth`
+-`React-Icons`
+
 Para poder configurar y ejecutar el proyecto localmente, se necesita un Token Personal y una Aplicación OAuth.
 
 Para conseguir el Token Personal:"
