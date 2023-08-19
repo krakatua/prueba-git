@@ -5,46 +5,21 @@ import Languages from "./Languages";
 import { months } from "@/constants";
 import { Toaster, toast } from "sonner";
 
-function RepoCards({ repo }) {
-  const [isSaved, setIsSaved] = useState(false);
-  const [saveRepos, setSaveRepos] = useState([]);
+function RepoCards({ repo, onSave }) {
+  
 
   const dateObject = new Date(repo?.updated_at);
-
   const day = dateObject.getDate();
   const monthAbbreviation = months[dateObject.getMonth()];
-
   const formattedDate = `Updated on ${day} ${monthAbbreviation}`;
 
-useEffect(() => {
-  const storeRepo = localStorage.getItem("savedRepo");
-  if (storeRepo) {
-    setSaveRepos(JSON.parse(storeRepo))
-  }
-}, []);
+  
 
 //Funcion para guardar un Repositorio
-const saveRepoCard = (repoCard) => {
-  setSaveRepos((prevSaveRepos) => {
-    const updatedRepoCards = [...prevSaveRepos, repoCard];
-    localStorage.setItem("savedRepo", JSON.stringify(updatedRepoCards));
-    toast("Elemento guardado");
-    return updatedRepoCards;
-  });
-}
-
-const removeRepoCard = (repoCard) => {
-  const updatedRepoCards = saveRepos.filter((repo) => repo.id !== repoCard.id);
-  setSaveRepos(updatedRepoCards);
-
-  localStorage.setItem("savedRepo", JSON.stringify(updatedRepoCards));
-  toast("Elemento eliminado");
-}
-
-const isRepoSaved = saveRepos.some((repo) => saveRepos.id === repo.id);
-
-console.log(saveRepos)
-  
+  const saveCard = () => {
+    onSave(repo)
+    toast("repository Added")
+  }
 
   return (
     <div className="flex border border-gray-500  rounded-md">
@@ -79,21 +54,15 @@ console.log(saveRepos)
           </div>
         </div>
       </div>
-      {isRepoSaved ? (
+      
+    
       <button
-        onClick={() => removeRepoCard(repo)}
-        className="w-full h-fit m-auto mr-1"
-      >
-        <BsTrash className="text-white" />
-      </button>
-    ) : (
-      <button
-        onClick={() => saveRepoCard(repo)}
+        onClick={saveCard}
         className="w-full h-fit m-auto mr-1"
       >
         <BsFlag className="text-white" />
       </button>
-    )}
+   
     
     </div>
   );

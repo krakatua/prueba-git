@@ -15,6 +15,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("users");
   const [loading, setLoading] = useState(true);
+  const [saveRepos, setSaveRepos] = useState([]);
 
 
   //Hago esto para prevenir que cuando se cambie el valor del select no haga una peticion a la api.
@@ -54,7 +55,17 @@ function Home() {
 
   // Cargar los datos almacenandos desde que se inicia
  
-
+  const saveRepoCard = (repo) => {
+    const updatedRepoCards = [...saveRepos, repo];
+    setSaveRepos(updatedRepoCards);
+  
+    localStorage.setItem("savedRepo", JSON.stringify(updatedRepoCards));
+    toast("Elemento guardado");
+  }
+useEffect(() => {
+  const storedRepos = JSON.parse(localStorage.getItem("savedRepo")) || [];
+  setSaveRepos(storedRepos);
+}, []);
 
 
   
@@ -83,7 +94,7 @@ function Home() {
           } flex flex-col mb-2 gap-2 p-2`}
         >
           {searchResults?.items?.map((repo) => (
-            <RepoCards key={repo.id} repo={repo} />
+            <RepoCards key={repo.id} repo={repo} onSave={saveRepoCard}/>
           ))}
         </div>
       );

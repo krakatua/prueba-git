@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react'
-import { useRouter } from 'next/router';
-import Layout from '@/components/Layout';
-import { Toaster, toast } from 'sonner';
-import Followers from '@/components/ui/Followers';
-import RepoCards from '@/components/ui/RepoCards';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Layout from "@/components/Layout";
+import { Toaster, toast } from "sonner";
+import Followers from "@/components/ui/Followers";
+import RepoCards from "@/components/ui/RepoCards";
+import Link from "next/link";
 
 export default function AccountPage() {
   const [userData, setUserData] = useState([]);
@@ -41,70 +42,65 @@ export default function AccountPage() {
   }
 
   useEffect(() => {
-    getUser()
+    getUser();
   }, [id]);
-    
-async function getRepos () {
-  await userData;
 
-  const response = await fetch(userData?.repos_url)
-  const data = await response.json()
-  setRepos(data)
-}
+  async function getRepos() {
+    await userData;
 
-useEffect(() => {
-  getRepos()
-}, [userData])
+    const response = await fetch(userData?.repos_url);
+    const data = await response.json();
+    setRepos(data);
+  }
 
-
+  useEffect(() => {
+    getRepos();
+  }, [userData]);
 
   return (
     <Layout>
-
-      <Toaster/>
-      <div className='flex justify-center items-start gap-10 mt-5'>
-
-      <div className='flex justify-center items-center'>
-
-        <div className='flex flex-col gap-3'>
-        <img className='rounded-full' src={userData?.avatar_url}/>
-          <div>
-
-        <h1>{userData?.name}</h1>
-        <h1 className='text-gray-400'>@{userData?.login}</h1>
-          <button className='text-white w-full bg-gray-700 p-2 rounded-lg border border-gray-300'>Follow</button>
+      <Toaster />
+      <div className="flex flex-wrap justify-center items-center gap-5 gap-10 mt-5">
+        <div className="flex justify-center items-center">
+          <div className="flex flex-col gap-3">
+            <img className="rounded-full w-[250px]" src={userData?.avatar_url} />
+            <div>
+              <h1>{userData?.name}</h1>
+              <h1 className="text-gray-400">@{userData?.login}</h1>
+              <a
+              href={userData?.html_url}
+              target="_blank"
+              className="text-white w-auto bg-gray-700 p-2 rounded-lg border border-gray-300">
+                Follow
+              </a>
+            </div>
+            <div className="flex justify-start items-center gap-2 text-gray-400 text-[18px]">
+              <Followers url={userData?.followers_url} /> Followers
+              <span className="text-white">·</span>
+              <br />
+              <h1 className="text-gray-400 text-[18px] font-extralight">
+                {userData?.following} following
+              </h1>
+            </div>
+            <h1 className="text-white">@{userData?.twitter_username}</h1>
           </div>
-          <div className='flex justify-start items-center gap-2 text-gray-400 text-[18px]'>
-
-        <Followers url={userData?.followers_url}/> Followers
-        <span className='text-white'>·</span>
-        <br/>
-        <h1 className='text-gray-400 text-[18px] font-extralight'>{userData?.following} following</h1>
-          </div>
-        <h1 className='text-white'>@{userData?.twitter_username}</h1>
         </div>
-        
-      </div>
-      <div>
+        <div>
+          <ul className="flex flex-col justify-center gap-2">
+          {repos && Array.isArray(repos) && repos.slice(0, visible).map((repo) => (
+      <RepoCards key={repo.id} repo={repo} />
+    ))}
+          </ul>
 
-        <ul className='flex flex-col gap-2'>
-
-        {
-          repos?.slice(0, visible).map(repo => (
-            <RepoCards key={repo.id} repo={repo}/>
-          ))
-          }
-        </ul>
-        
-            <button
-            className='text-white mt-5 bg-gray-700 border border-gray-400 p-2 rounded-lg hover:bg-white hover:text-black font-bold transition-all'
-            id='loadmore'
-            onClick={showMoreItems}>
-              Load More
-            </button>
-        
-      </div>
+          <button
+            className="text-white mt-5 bg-gray-700 border border-gray-400 p-2 rounded-lg hover:bg-white hover:text-black font-bold transition-all"
+            id="loadmore"
+            onClick={showMoreItems}
+          >
+            Load More
+          </button>
+        </div>
       </div>
     </Layout>
-  )
+  );
 }
