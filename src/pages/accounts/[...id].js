@@ -60,17 +60,17 @@ export default function AccountPage() {
   return (
     <Layout>
       <Toaster />
-      <div className="flex flex-wrap justify-center items-center gap-5 gap-10 mt-5">
+      <div className="flex flex-wrap justify-center items-start gap-5 gap-10 mt-5">
         <div className="flex justify-center items-center">
           <div className="flex flex-col gap-3">
             <img className="rounded-full w-[250px]" src={userData?.avatar_url} />
-            <div>
+            <div className='flex flex-col gap-5'>
               <h1>{userData?.name}</h1>
               <h1 className="text-gray-400">@{userData?.login}</h1>
               <a
               href={userData?.html_url}
               target="_blank"
-              className="text-white w-auto bg-gray-700 p-2 rounded-lg border border-gray-300">
+              className="text-white w-auto text-center bg-gray-700 p-2 rounded-lg border border-gray-300">
                 Follow
               </a>
             </div>
