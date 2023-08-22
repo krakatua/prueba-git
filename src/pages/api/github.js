@@ -4,7 +4,16 @@ import { Octokit } from "octokit";
 
 export default async function handler (req, res) {
   if (req.method === "POST") {
-    const { searchType,  userSearch, page = 1, per_page = 15, username } = req.body;
+
+    //Los datos que son enviados para diferencia que tipo de REQUEST se hara
+    const { 
+      searchType,  
+      userSearch, 
+      page = 1, 
+      per_page = 15, 
+      username,
+      owner,
+      repoName } = req.body;
 
     const octokit = new Octokit({
       auth: process.env.GITHUB_TOKEN,
@@ -24,6 +33,15 @@ export default async function handler (req, res) {
             'X-GitHub-Api-Version': '2022-11-28'
           }
         })
+      } else if (owner || repoName) {
+         response = await octokit.request('GET /repos/{owner}/{repo}', {
+          owner: owner,
+          repo: repoName,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
+        })
+
       } else {
         response = await octokit.request(`GET ${searchEndpoint}`, {
           q: userSearch,

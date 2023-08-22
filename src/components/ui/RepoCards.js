@@ -4,6 +4,7 @@ import { BiGitRepoForked } from "react-icons/bi";
 import Languages from "./Languages";
 import { months } from "@/constants";
 import { Toaster, toast } from "sonner";
+import Link from "next/link";
 
 function RepoCards({ repo, onSave }) {
   
@@ -13,7 +14,6 @@ function RepoCards({ repo, onSave }) {
   const monthAbbreviation = months[dateObject.getMonth()];
   const formattedDate = `Updated on ${day} ${monthAbbreviation}`;
 
-  
 
 //Funcion para guardar un Repositorio
   const saveCard = () => {
@@ -33,9 +33,9 @@ function RepoCards({ repo, onSave }) {
                 src={repo?.owner?.avatar_url}
               />
             </picture>
-            <a target="_blank" href={repo?.html_url} className="text-[14px] lg:text-[16px] text-[#4551BD] overflow-x-hidden">
+            <Link href={`/repos/${repo?.owner?.login}/${repo?.name}`} className="text-[14px] lg:text-[16px] text-[#4551BD] overflow-x-hidden">
               {repo?.full_name}
-            </a>
+            </Link>
           </div>
           <div></div>
           <h2 className="text-[10px] lg:text-[14px]">{repo?.description}</h2>
